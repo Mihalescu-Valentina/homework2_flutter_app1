@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool? _checkTriangular(int n) {
     for (int i = 0; i <= n / 3; i++)
-      if (i * i* i == n) {
+      if (i * i * i == n) {
         return true;
       }
     return false;
@@ -61,10 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Text(
-                  "Please input a number to see if it is square or triangular.",
-                  textDirection: TextDirection.ltr,
-                  style: TextStyle(fontSize: 20)),
+              child: Text("Please input a number to see if it is square or triangular.",
+                  textDirection: TextDirection.ltr, style: TextStyle(fontSize: 20)),
             ),
             Container(
               padding: EdgeInsets.all(16),
@@ -95,30 +93,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 final bool? isTriangular = _checkTriangular(userinput);
                 String message;
 
-                if (isSquare != null &&
-                    isSquare == true &&
-                    isTriangular != null &&
-                    isTriangular == true) {
-                  message =
-                      "Number $userinput is both SQUARE and TRIANGULAR.";
+                if (isSquare != null && isSquare == true && isTriangular != null && isTriangular == true) {
+                  message = "Number $userinput is both SQUARE and TRIANGULAR.";
                   CreateAlertDialog(context, userinput, message);
                 } else if (isSquare != null && isSquare == true) {
                   message = "Number $userinput is a SQUARE!";
                   CreateAlertDialog(context, userinput, message);
-                }
-                else if (isTriangular != null && isTriangular == true) {
+                } else if (isTriangular != null && isTriangular == true) {
                   message = "Number $userinput is TRIANGULAR!";
                   CreateAlertDialog(context, userinput, message);
+                } else if (isSquare != null && isSquare == false && isTriangular != null && isTriangular == false) {
+                  message = "Number $userinput is neither SQUARE nor TRIANGULAR.";
+                  CreateAlertDialog(context, userinput, message);
                 }
-
-                else if(isSquare != null &&
-                      isSquare == false &&
-                      isTriangular != null &&
-                      isTriangular == false) {
-              message =
-              "Number $userinput is neither SQUARE nor TRIANGULAR.";
-              CreateAlertDialog(context, userinput, message);
-              }
               }
             },
           );
