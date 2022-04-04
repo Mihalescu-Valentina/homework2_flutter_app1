@@ -10,7 +10,7 @@ class SquareTriangularApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: const MyHomePage(),
+      home: MyHomePage(),
     );
   }
 }
@@ -25,30 +25,32 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _controller = TextEditingController();
 
-  CreateAlertDialog(BuildContext context, int n, String message) {
+  createAlertDialog(BuildContext context, int n, String message) {
     return showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("${n}"),
+            title: Text("$n"),
             content: Text(message),
           );
         });
   }
 
   bool? _checkSquare(int n) {
-    for (int i = 0; i <= n / 2; i++)
+    for (int i = 0; i <= n / 2; i++) {
       if (i * i == n) {
         return true;
       }
+    }
     return false;
   }
 
   bool? _checkTriangular(int n) {
-    for (int i = 0; i <= n / 3; i++)
+    for (int i = 0; i <= n / 3; i++) {
       if (i * i * i == n) {
         return true;
       }
+    }
     return false;
   }
 
@@ -59,13 +61,15 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(title: const Text("Number Shapes"), centerTitle: true),
         body: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text("Please input a number to see if it is square or triangular.",
-                  textDirection: TextDirection.ltr, style: TextStyle(fontSize: 20)),
+            const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text(
+                  "Please input a number to see if it is square or triangular.",
+                  textDirection: TextDirection.ltr,
+                  style: TextStyle(fontSize: 20)),
             ),
             Container(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: TextFormField(
                 keyboardType: TextInputType.number,
                 controller: _controller,
@@ -77,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   if (result == null) {
                     return 'Please enter an integer number';
                   }
+                  return null;
                 },
               ),
             ),
@@ -84,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         floatingActionButton: Builder(builder: (context) {
           return FloatingActionButton(
-            child: Icon(Icons.check),
+            child: const Icon(Icons.check),
             onPressed: () {
               final bool valid = Form.of(context)!.validate();
               if (valid) {
@@ -93,18 +98,25 @@ class _MyHomePageState extends State<MyHomePage> {
                 final bool? isTriangular = _checkTriangular(userinput);
                 String message;
 
-                if (isSquare != null && isSquare == true && isTriangular != null && isTriangular == true) {
+                if (isSquare != null &&
+                    isSquare == true &&
+                    isTriangular != null &&
+                    isTriangular == true) {
                   message = "Number $userinput is both SQUARE and TRIANGULAR.";
-                  CreateAlertDialog(context, userinput, message);
+                  createAlertDialog(context, userinput, message);
                 } else if (isSquare != null && isSquare == true) {
                   message = "Number $userinput is a SQUARE!";
-                  CreateAlertDialog(context, userinput, message);
+                  createAlertDialog(context, userinput, message);
                 } else if (isTriangular != null && isTriangular == true) {
                   message = "Number $userinput is TRIANGULAR!";
-                  CreateAlertDialog(context, userinput, message);
-                } else if (isSquare != null && isSquare == false && isTriangular != null && isTriangular == false) {
-                  message = "Number $userinput is neither SQUARE nor TRIANGULAR.";
-                  CreateAlertDialog(context, userinput, message);
+                  createAlertDialog(context, userinput, message);
+                } else if (isSquare != null &&
+                    isSquare == false &&
+                    isTriangular != null &&
+                    isTriangular == false) {
+                  message =
+                      "Number $userinput is neither SQUARE nor TRIANGULAR.";
+                  createAlertDialog(context, userinput, message);
                 }
               }
             },
